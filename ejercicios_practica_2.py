@@ -27,8 +27,24 @@ def ej3():
     # para cumplir con el enunciado del ejercicio
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    csvfile = open('stock.csv','r')   
+    stock = list(csv.DictReader(csvfile))
+    cant_arandelas = 0
+    cant_tornillos = 0
+    cant_tuercas = 0
+    for i in range(len(stock)):
+        articulos = stock[i]
+        for k,v in articulos.items():
+            if k == "arandelas":
+                cant_arandelas += int(v)
+            elif k == "tornillos":
+                cant_tornillos += int(v)
+            else:
+                cant_tuercas += int(v)
+    print("La cantidad de arandelas es de",cant_arandelas,"\n""La cantidad de tornillos es de",cant_tornillos,"\n"
+    "y la cantidad de tuercas es de",cant_tuercas)
+    csvfile.close()
     
-
 
 def ej4():
     print('Ejercicios con archivos CSV 2º')
@@ -47,6 +63,33 @@ def ej4():
     # utilizando "try except", tema que se verá la clase que viene.
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    csvfile = open('propiedades.csv','r')     
+    propiedades = list(csv.DictReader(csvfile))
+    n_amb = 0
+    dos_amb = 0
+    tres_amb = 0
+    err = 0
+    for i in range(len(propiedades)):       # Cantidad de ítems: 1049
+        depto = propiedades[i]
+        for k,v in depto.items():
+            try:
+                ambientes = int(v)
+                if ambientes == 2:
+                    dos_amb += int(v)
+                elif ambientes == 3:
+                    tres_amb += int(v)
+                elif ambientes == " ":
+                    err += int(v)
+                else:
+                    n_amb += int(v)
+            except:
+                print("Hay deparatamentos que no especifican...")          
+    print("Departamentos de dos ambientes:",dos_amb)
+    print("Departamentos de tres ambientes:",tres_amb)
+    print("Departamentos sin especificar:",err)
+    print('Errores:',n_amb)
+   
+    csvfile.close()
 
 
 if __name__ == '__main__':
